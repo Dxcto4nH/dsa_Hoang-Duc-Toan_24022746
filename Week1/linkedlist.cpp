@@ -1,118 +1,96 @@
 ﻿#include <iostream>
-#include "linkedlist.h"
 using namespace std;
 
-void initList(LinkedList& L) { //O(1)
-    L.head = nullptr;
-    L.size = 0;
+// ---------------- STACK với LIST ----------------
+struct Stack {
+    int data[100]; // mảng chứa dữ liệu
+    int size;      // số phần tử hiện tại
+};
+
+// Khởi tạo stack rỗng
+void initStack(Stack& s) {
+    s.size = 0;
 }
 
-int getList(LinkedList& L, int i) {    //O(n)
-    if (i < 0 || i >= L.size) {
-        return -1;
-    }
-    Node* p = L.head;
-    for (int k = 0; k < i; k++) {
-        p = p->next;
-    }
-    return p->data;
+bool isEmpty(Stack& s) {
+    return s.size == 0;
 }
 
-void insertFirstList(LinkedList& L, int value) {    //O(1)
-    Node* node = new Node{ value, L.head };
-    L.head = node;
-    L.size++;
-}
-
-void insertLastList(LinkedList& L, int value) {    //O(n)
-    Node* node = new Node{ value, nullptr };
-    if (L.head == nullptr) {
-        L.head = node;
+void push(Stack& s, int x) {
+    if (s.size < 100) {
+        s.data[s.size++] = x;
     }
     else {
-        Node* p = L.head;
-        while (p->next != nullptr) p = p->next;
-        p->next = node;
-    }
-    L.size++;
-}
-
-void insertAtList(LinkedList& L, int i, int value) {   //O(n)
-    if (i < 0 || i > L.size) {
-        return;
-    }
-    if (i == 0) { 
-        insertFirstList(L, value);
-        return; 
-    } 
-    Node* p = L.head;
-    for (int k = 0; k < i - 1; k++) {
-        p = p->next;
-        Node* node = new Node{ value, p->next };
-        p->next = node;
-        L.size++;
+        cout << "Stack day!\n";
     }
 }
 
-void removeFirstList(LinkedList& L) {    //O(1)
-    if (L.size == 0) {
-        return;
+int pop(Stack& s) {
+    if (!isEmpty(s)) {
+        return s.data[--s.size];
     }
-    Node* p = L.head;
-    L.head = L.head->next;
-    delete p;
-    L.size--;
+    cout << "Stack rong!\n";
+    return -1;
 }
 
-void removeLastList(LinkedList& L) {     //O(n)
-    if (L.size == 0) {
-        return;
+int top(Stack& s) {
+    if (!isEmpty(s)) {
+        return s.data[s.size - 1];
     }
-    if (L.size == 1) {
-        delete L.head;
-        L.head = nullptr;
-        L.size--;
-        return;
-    }
-    Node* p = L.head;
-    while (p->next->next != nullptr) {
-        p = p->next;
-        delete p->next;
-        p->next = nullptr;
-        L.size--;
-    }
+    cout << "Stack rong!\n";
+    return -1;
 }
 
-void removeAtList(LinkedList& L, int i) {     //0(n)
-    if (i < 0 || i >= L.size) {
-        return;
-    }
-    if (i == 0) {
-        removeFirstList(L); return;
-    }
-    Node* p = L.head;
-    for (int k = 0; k < i - 1; k++) {
-        p = p->next;
-        Node* q = p->next;
-        p->next = q->next;
-        delete q;
-        L.size--;
-    }
+int size(Stack& s) {
+    return s.size;
 }
 
-void traverseForwardList(LinkedList& L) {     //O(n)
-    Node* p = L.head;
-    while (p != nullptr) {
-        cout << p->data << " ";
-        p = p->next;
-    }
-    cout << endl;
+// ---------------- STACK với LINKED LIST ----------------
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Stack
+struct Stack {
+    Node* top;
+    int size;
+};
+
+void initStack(Stack& s) {
+    s.top = nullptr;
+    s.size = 0;
 }
 
-void traverseBackwardList(Node* p) {      //O(n)
-    if (p == nullptr) {
-        return;
+bool isEmpty(Stack& s) {
+    return s.top == nullptr;
+}
+
+void push(Stack& s, int x) {
+    Node* p = new Node{ x, s.top };
+    s.top = p;
+    s.size++;
+}
+
+int pop(Stack& s) {
+    if (!isEmpty(s)) {
+        Node* p = s.top;
+        int x = p->data;
+        s.top = p->next;
+        delete p;
+        s.size--;
+        return x;
     }
-    traverseBackwardList(p->next);
-    cout << p->data << " ";
+    cout << "Stack rong!\n";
+    return -1;
+}
+
+int top(Stack& s) {
+    if (!isEmpty(s)) return s.top->data;
+    cout << "Stack rong!\n";
+    return -1;
+}
+
+int size(Stack& s) {
+    return s.size;
 }

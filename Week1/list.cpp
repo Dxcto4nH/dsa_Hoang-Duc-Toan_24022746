@@ -5,7 +5,9 @@ using namespace std;
 void init(List& L) { L.size = 0; }
 
 int get(List& L, int i) {    //O(1)
-    if (i < 0 || i >= L.size) return -1;
+    if (i < 0 || i >= L.size) {
+        return -1;
+    }
     return L.data[i];
 }
 
