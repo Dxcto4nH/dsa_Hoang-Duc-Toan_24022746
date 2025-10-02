@@ -2,12 +2,12 @@
 #include "linkedlist.h"
 using namespace std;
 
-void initList(LinkedList& L) {
+void initList(LinkedList& L) { //O(1)
     L.head = nullptr;
     L.size = 0;
 }
 
-int getList(LinkedList& L, int i) {
+int getList(LinkedList& L, int i) {    //O(n)
     if (i < 0 || i >= L.size) {
         return -1;
     }
@@ -18,13 +18,13 @@ int getList(LinkedList& L, int i) {
     return p->data;
 }
 
-void insertFirstList(LinkedList& L, int value) {
+void insertFirstList(LinkedList& L, int value) {    //O(1)
     Node* node = new Node{ value, L.head };
     L.head = node;
     L.size++;
 }
 
-void insertLastList(LinkedList& L, int value) {
+void insertLastList(LinkedList& L, int value) {    //O(n)
     Node* node = new Node{ value, nullptr };
     if (L.head == nullptr) {
         L.head = node;
@@ -37,7 +37,7 @@ void insertLastList(LinkedList& L, int value) {
     L.size++;
 }
 
-void insertAtList(LinkedList& L, int i, int value) {
+void insertAtList(LinkedList& L, int i, int value) {   //O(n)
     if (i < 0 || i > L.size) {
         return;
     }
@@ -54,7 +54,7 @@ void insertAtList(LinkedList& L, int i, int value) {
     }
 }
 
-void removeFirstList(LinkedList& L) {
+void removeFirstList(LinkedList& L) {    //O(1)
     if (L.size == 0) {
         return;
     }
@@ -64,7 +64,7 @@ void removeFirstList(LinkedList& L) {
     L.size--;
 }
 
-void removeLastList(LinkedList& L) {
+void removeLastList(LinkedList& L) {     //O(n)
     if (L.size == 0) {
         return;
     }
@@ -83,7 +83,7 @@ void removeLastList(LinkedList& L) {
     }
 }
 
-void removeAtList(LinkedList& L, int i) {
+void removeAtList(LinkedList& L, int i) {     //0(n)
     if (i < 0 || i >= L.size) {
         return;
     }
@@ -100,7 +100,7 @@ void removeAtList(LinkedList& L, int i) {
     }
 }
 
-void traverseForwardList(LinkedList& L) {
+void traverseForwardList(LinkedList& L) {     //O(n)
     Node* p = L.head;
     while (p != nullptr) {
         cout << p->data << " ";
@@ -109,7 +109,7 @@ void traverseForwardList(LinkedList& L) {
     cout << endl;
 }
 
-void traverseBackwardList(Node* p) {
+void traverseBackwardList(Node* p) {      //O(n)
     if (p == nullptr) {
         return;
     }
