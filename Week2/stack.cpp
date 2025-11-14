@@ -85,7 +85,9 @@ int pop(Stack& s) { //O(1)
 }
 
 int top(Stack& s) { //O(1)
-    if (!isEmpty(s)) return s.top->data;
+    if (!isEmpty(s)) {
+        return s.top->data;
+    }
     cout << "Stack rong!\n";
     return -1;
 }
