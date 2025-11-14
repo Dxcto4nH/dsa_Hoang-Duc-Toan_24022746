@@ -6,7 +6,7 @@ void BFS(int start, vector<vector<int>>& adj) {
     queue<int> q;
 
     visited[start] = true;
-    q.push(start);
+    q.push(start); 
 
     while (!q.empty()) {
         int u = q.front(); q.pop();
